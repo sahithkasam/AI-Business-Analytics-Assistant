@@ -2,7 +2,7 @@
 
 I built this project to solve a problem I kept running into — spending way too much time writing SQL queries just to get basic business insights. The idea is simple: you type a question in plain English, and the system figures out the SQL, runs it, and gives you a chart plus a short business summary.
 
-It's a full-stack app with a FastAPI backend, Next.js frontend, and PostgreSQL. The AI layer uses OpenAI GPT-4.1 to handle the natural language → SQL conversion.
+It's a full-stack app with a FastAPI backend, Next.js frontend, and PostgreSQL. The AI layer uses Groq's LLaMA (llama-3.3-70b-versatile) to handle the natural language → SQL conversion.
 
 ---
 
@@ -28,7 +28,7 @@ JWT-based login with three roles: `admin`, `analyst`, `viewer`. The SQL executio
 
 - **Frontend:** Next.js 15, TypeScript, Tailwind CSS, Recharts, Zustand
 - **Backend:** FastAPI (Python 3.12), SQLAlchemy 2.0 async
-- **AI:** OpenAI GPT-4.1
+- **AI:** Groq LLaMA (llama-3.3-70b-versatile)
 - **Database:** PostgreSQL 16
 - **Auth:** JWT with python-jose + passlib
 - **Export:** ReportLab for PDFs
@@ -44,8 +44,8 @@ JWT-based login with three roles: `admin`, `analyst`, `viewer`. The SQL executio
 git clone https://github.com/sahithkasam/AI-Business-Analytics-Assistant.git
 cd "AI Business Analytics Assistant"
 
-# Add your OpenAI key
-export OPENAI_API_KEY=sk-your-key-here
+# Add your Groq API key
+export GROQ_API_KEY=gsk_your-key-here
 
 docker compose up --build
 ```
@@ -73,8 +73,8 @@ npm run dev
 
 `backend/.env`:
 ```
-OPENAI_API_KEY=sk-your-key-here
-OPENAI_MODEL=gpt-4.1
+GROQ_API_KEY=gsk_your-key-here
+GROQ_MODEL=llama-3.3-70b-versatile
 DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/analytics_db
 SECRET_KEY=your-secret-key-at-least-32-chars
 ALLOWED_ORIGINS=["http://localhost:3000"]
@@ -133,7 +133,7 @@ Main endpoints:
 ## How the AI pipeline works
 
 1. Pulls the live schema from PostgreSQL so the model knows what tables exist
-2. Builds a few-shot prompt and sends it to GPT-4.1
+2. Builds a few-shot prompt and sends it to Groq LLaMA
 3. Validates the generated SQL (SELECT-only, no dangerous keywords, no system tables)
 4. Executes it with a timeout
 5. If it fails, sends the error back to the model for a corrected query
