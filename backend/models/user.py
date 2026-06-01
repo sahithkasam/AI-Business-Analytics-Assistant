@@ -31,6 +31,7 @@ class User(Base):
 
     query_history = relationship("QueryHistory", back_populates="user", cascade="all, delete-orphan")
     saved_queries = relationship("SavedQuery", back_populates="user", cascade="all, delete-orphan")
+    uploaded_datasets = relationship("UploadedDataset", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User {self.email} [{self.role}]>"

@@ -24,7 +24,7 @@ pip install -r requirements.txt -q
 # Copy env file
 if [ ! -f .env ]; then
     cp .env.example .env
-    echo "⚠️  Created backend/.env — please add your OPENAI_API_KEY"
+    echo "⚠️  Created backend/.env — please add your GROQ_API_KEY"
 fi
 
 echo ""

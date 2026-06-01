@@ -122,31 +122,6 @@ class ToggleFavoriteResponse(BaseModel):
     is_favorite: bool
 
 
-# ─── Saved Queries ────────────────────────────────────────────────────────────
-
-class SaveQueryRequest(BaseModel):
-    name: str = Field(min_length=1, max_length=255)
-    description: Optional[str] = None
-    natural_language_query: str
-    sql_query: str
-    chart_type: Optional[str] = None
-    tags: Optional[List[str]] = None
-
-
-class SavedQueryResponse(BaseModel):
-    id: UUID
-    name: str
-    description: Optional[str]
-    natural_language_query: str
-    sql_query: str
-    chart_type: Optional[str]
-    tags: Optional[List[str]]
-    created_at: datetime
-    updated_at: Optional[datetime]
-
-    model_config = {"from_attributes": True}
-
-
 # ─── KPI / Dashboard ─────────────────────────────────────────────────────────
 
 class KPICard(BaseModel):
@@ -176,8 +151,3 @@ class ExportRequest(BaseModel):
     title: Optional[str] = "Analytics Report"
 
 
-class ExportResponse(BaseModel):
-    download_url: str
-    filename: str
-    format: str
-    row_count: int

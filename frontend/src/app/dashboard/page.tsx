@@ -8,11 +8,11 @@ import { dashboardApi } from "@/lib/api";
 import type { DashboardKPIs, RevenueTrendPoint, CategoryBreakdown, TopCustomer } from "@/types";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 
-const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
+const PIE_COLORS = ["#8b5cf6", "#06b6d4", "#f59e0b", "#ec4899", "#10b981"];
 
 const tooltipStyle = {
-  backgroundColor: "#1f2937",
-  border: "1px solid #374151",
+  backgroundColor: "#1e1030",
+  border: "1px solid #4c1d95",
   borderRadius: "8px",
   color: "#f9fafb",
   fontSize: "12px",
@@ -92,15 +92,15 @@ export default function DashboardPage() {
               <AreaChart data={trend} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <defs>
                   <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: "#9ca3af" }} />
                 <YAxis tick={{ fontSize: 10, fill: "#9ca3af" }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
                 <Tooltip contentStyle={tooltipStyle} formatter={(v: number) => [formatCurrency(v), "Revenue"]} />
-                <Area type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={2} fill="url(#revGrad)" />
+                <Area type="monotone" dataKey="revenue" stroke="#8b5cf6" strokeWidth={2} fill="url(#revGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           )}
@@ -164,7 +164,7 @@ export default function DashboardPage() {
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: "#9ca3af" }} />
                 <YAxis tick={{ fontSize: 10, fill: "#9ca3af" }} />
                 <Tooltip contentStyle={tooltipStyle} />
-                <Bar dataKey="orders" fill="#10b981" radius={[4, 4, 0, 0]} name="Orders" />
+                <Bar dataKey="orders" fill="#06b6d4" radius={[4, 4, 0, 0]} name="Orders" />
               </BarChart>
             </ResponsiveContainer>
           )}

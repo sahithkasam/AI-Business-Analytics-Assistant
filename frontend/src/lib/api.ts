@@ -94,6 +94,19 @@ export const exportApi = {
     api.post("/export/pdf", { ...data, format: "pdf" }, { responseType: "blob" }),
 };
 
+// ─── Datasets (Excel Upload) ─────────────────────────────────────────────────
+export const datasetApi = {
+  upload: (file: File) => {
+    const form = new FormData();
+    form.append("file", file);
+    return api.post("/upload/excel", form, { headers: { "Content-Type": "multipart/form-data" } });
+  },
+  list: () => api.get("/upload/datasets"),
+  get: (id: string) => api.get(`/upload/datasets/${id}`),
+  query: (id: string, question: string) => api.post(`/upload/datasets/${id}/query`, { question }),
+  delete: (id: string) => api.delete(`/upload/datasets/${id}`),
+};
+
 export function downloadBlob(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");

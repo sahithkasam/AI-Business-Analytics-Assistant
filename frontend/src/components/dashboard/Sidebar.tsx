@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import { BarChart3, Bot, History, LayoutDashboard, LogOut, Settings, Star, Users } from "lucide-react";
+import { BarChart3, Bot, History, LayoutDashboard, LogOut, Star, Upload } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUIStore } from "@/store/useUIStore";
 import { authApi } from "@/lib/api";
@@ -12,6 +12,7 @@ const navItems = [
   { href: "/dashboard/history", icon: History, label: "Query History" },
   { href: "/dashboard/favorites", icon: Star, label: "Favorites" },
   { href: "/dashboard/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/dashboard/datasets", icon: Upload, label: "My Datasets" },
 ];
 
 export default function Sidebar() {

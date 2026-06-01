@@ -72,12 +72,6 @@ async def get_current_user(
     return user
 
 
-async def get_current_active_user(user: User = Depends(get_current_user)) -> User:
-    if not user.is_active:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return user
-
-
 def require_role(*roles: UserRole):
     """Factory for role-based access control dependency."""
     async def checker(user: User = Depends(get_current_user)) -> User:

@@ -138,6 +138,47 @@ export interface QueryHistoryList {
   page_size: number;
 }
 
+// ─── Uploaded Datasets ───────────────────────────────────────────────────────
+
+export interface DatasetColumnMeta {
+  name: string;
+  pg_type: string;
+  sample_values: string[];
+}
+
+export interface DatasetKPIValue {
+  label: string;
+  col: string;
+  agg: "sum" | "avg";
+  value: number;
+}
+
+export interface DatasetChartData {
+  type: ChartType;
+  x: string;
+  y: string;
+  title: string;
+  data: Record<string, unknown>[];
+}
+
+export interface DatasetListItem {
+  id: string;
+  name: string;
+  original_filename: string;
+  table_name: string;
+  row_count: number;
+  column_count: number;
+  columns_meta: DatasetColumnMeta[];
+  created_at: string;
+}
+
+export interface DatasetDetail extends DatasetListItem {
+  kpi_values: DatasetKPIValue[];
+  chart_data: DatasetChartData[];
+  sample_data: Record<string, unknown>[];
+  columns: { name: string }[];
+}
+
 // ─── UI State ─────────────────────────────────────────────────────────────────
 
 export type Theme = "light" | "dark";

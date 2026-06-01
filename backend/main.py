@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 from config.settings import settings
 from database.connection import init_db, close_db
 from middleware.rate_limiter import RateLimitMiddleware
-from routes import auth_router, query_router, history_router, dashboard_router, export_router
+from routes import auth_router, query_router, history_router, dashboard_router, export_router, upload_router
 
 logging.basicConfig(
     level=logging.INFO if not settings.DEBUG else logging.DEBUG,
@@ -78,6 +78,7 @@ app.include_router(query_router, prefix="/api/v1")
 app.include_router(history_router, prefix="/api/v1")
 app.include_router(dashboard_router, prefix="/api/v1")
 app.include_router(export_router, prefix="/api/v1")
+app.include_router(upload_router, prefix="/api/v1")
 
 
 @app.get("/", tags=["Health"])
