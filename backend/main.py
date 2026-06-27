@@ -10,6 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
+import redis.asyncio as aioredis
+
 from config.settings import settings
 from database.connection import init_db, close_db
 from middleware.rate_limiter import RateLimitMiddleware
@@ -26,7 +28,10 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     await init_db()
+    app.state.redis = aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+    logger.info("Redis connection established")
     yield
+    await app.state.redis.aclose()
     await close_db()
     logger.info("Application shutdown complete")
 
